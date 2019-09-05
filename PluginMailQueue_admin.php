@@ -1,0 +1,66 @@
+<?php
+class PluginMailQueue_admin{
+  private $settings = null;
+  private $mysql = null;
+  function __construct() {
+    if(!wfUser::hasRole('webadmin')){
+      exit('Role webadmin is required.');
+    }
+    /**
+     * Include.
+     */
+    wfPlugin::includeonce('theme/include');
+    wfPlugin::includeonce('wf/array');
+    wfPlugin::includeonce('wf/yml');
+    /**
+     * Enable.
+     */
+    wfPlugin::enable('wf/table');
+  /**
+     * Layout path.
+     */
+    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/mail/queue_admin/layout');
+    /**
+     * Settings.
+     */
+    $this->settings = wfPlugin::getModuleSettings('mail/queue_admin', true);
+    /**
+     * Mysql
+     */
+    wfPlugin::includeonce('wf/mysql');
+    $this->mysql = new PluginWfMysql();
+  }
+  public function page_start(){
+    $page = $this->getYml('page/start');
+    /**
+     * Insert admin layout from theme.
+     */
+    $page = wfDocument::insertAdminLayout($this->settings, 1, $page);
+    /**
+     * 
+     */
+    wfDocument::mergeLayout($page->get());
+  }
+  public function page_list(){
+    $rs = $this->db_list();
+    $page = $this->getYml('page/list');
+    $page->setByTag(array('data' => $rs));
+    wfDocument::renderElement($page->get());
+  }
+  public function getYml($dir){
+    return new PluginWfYml(__DIR__.'/'.$dir.".yml");
+  }
+  public function db_open(){
+    $this->mysql->open($this->settings->get('mysql'));
+  }
+  public function getSql($key, $dir = __DIR__){
+    return new PluginWfYml($dir.'/mysql/sql.yml', $key);
+  }
+  private function db_list(){
+    $this->db_open();
+    $sql = $this->getSql('list');
+    $this->mysql->execute($sql->get());
+    $rs = $this->mysql->getMany();
+    return $rs;
+  }
+}

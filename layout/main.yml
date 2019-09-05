@@ -1,0 +1,35 @@
+settings:
+  path: '2/innerHTML'
+content:
+  -
+    type: style
+    innerHTML: '.wf_form_row{margin-top:10px;}'
+  -
+    type: div
+    attribute:
+      class: 'container-fluid'
+    innerHTML:
+      -
+        type: widget
+        data:
+          plugin: 'bootstrap/navbar_v1'
+          method: navbar
+          data:
+            _: 'https://getbootstrap.com/docs/4.0/components/navbar/'
+            brand: Mail
+            navbar:
+              id: _my_navbar_i18n_
+              item:
+                -
+                  text: List
+                  onclick: PluginWfAjax.update('start')
+#                -
+#                  text: Addzzz
+#                  onclick: "PluginWfBootstrapjs.modal({id: 'modal_i18neditor_edit', url: '/'+document.getElementById('hidden_class').innerHTML+'/add', lable: 'Add'});"
+  -
+    type: div
+    attribute:
+      class: 'container-fluid'
+      style: 'padding-top:20px'
+    innerHTML:
+      
