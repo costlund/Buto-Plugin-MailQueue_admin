@@ -41,9 +41,15 @@ class PluginMailQueue_admin{
      */
     wfDocument::mergeLayout($page->get());
   }
-  public function page_list(){
-    $rs = $this->db_list();
-    $page = $this->getYml('page/list');
+  public function page_queue_list(){
+    $rs = $this->db_queue_list();
+    $page = $this->getYml('page/queue_list');
+    $page->setByTag(array('data' => $rs));
+    wfDocument::renderElement($page->get());
+  }
+  public function page_send_list(){
+    $rs = $this->db_send_list();
+    $page = $this->getYml('page/send_list');
     $page->setByTag(array('data' => $rs));
     wfDocument::renderElement($page->get());
   }
@@ -56,9 +62,16 @@ class PluginMailQueue_admin{
   public function getSql($key, $dir = __DIR__){
     return new PluginWfYml($dir.'/mysql/sql.yml', $key);
   }
-  private function db_list(){
+  private function db_queue_list(){
     $this->db_open();
-    $sql = $this->getSql('list');
+    $sql = $this->getSql('queue_list');
+    $this->mysql->execute($sql->get());
+    $rs = $this->mysql->getMany();
+    return $rs;
+  }
+  private function db_send_list(){
+    $this->db_open();
+    $sql = $this->getSql('send_list');
     $this->mysql->execute($sql->get());
     $rs = $this->mysql->getMany();
     return $rs;

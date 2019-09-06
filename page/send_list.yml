@@ -1,0 +1,20 @@
+-
+  type: widget
+  data:
+    plugin: wf/table
+    method: render_many
+    data:
+      datatable:
+        disabled: false
+      rs: rs:data
+      field:
+        created_at: Created at
+        id: ID
+        ip: IP
+        queue_count: Count
+        queue_error_count: Errors
+        created_by: Created by
+      class:
+        table: table-sm table-striped
+
+  

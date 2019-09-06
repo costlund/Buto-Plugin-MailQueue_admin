@@ -5,25 +5,13 @@ settings:
   title: I18n editor
 content:
   -
-    type: p
-    attribute:
-      id: hidden_class
-      style: 'display:none'
-    innerHTML: '[[class]]'
-  -
     type: div
     attribute:
       id: start
     innerHTML: 'start...'
   -
-    type: div
-    attribute:
-      id: hidden_div
-      style: 'display:none'
-    innerHTML: ''
-  -
     type: script
     innerHTML: |
-      PluginWfAjax.load('start', '/[[class]]/list');
+      PluginWfAjax.load('start', '/[[class]]/queue_list');
 
   

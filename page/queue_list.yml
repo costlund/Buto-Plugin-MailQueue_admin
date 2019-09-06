@@ -1,0 +1,31 @@
+-
+  type: widget
+  data:
+    plugin: wf/table
+    method: render_many
+    data:
+      datatable:
+        disabled: false
+      rs: rs:data
+      field:
+        date_from: Send at
+        rank: Rank
+        sent: Sent
+        error_text: Error
+        mail_to: To
+        subject: Subject
+        body: Body
+        #id: 10219665915b3f661fa7f28695553000
+        mail_from: From
+        #account_id: null
+        tag: Tag
+        #updated_at: '2018-07-06 15:14:19'
+        #updated_by: id_co_stenbergit        
+        date_to: End date
+        created_at: Created at
+        created_by: Created by
+        send_id: Send ID
+      class:
+        table: table-sm table-striped
+
+  

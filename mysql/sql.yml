@@ -1,9 +1,10 @@
-list:
+queue_list:
   sql: |
     select
     queue.created_at,
     queue.id,
     queue.send_id,
+    send.created_at as send_created_at,
     queue.subject,
     queue.body,
     queue.rank,
@@ -18,10 +19,14 @@ list:
     queue.created_by,
     queue.updated_by
     from mailqueue_queue as queue
+    left join mailqueue_send as send on queue.send_id=send.id
+    order by queue.created_at desc
+    ;
   select:
     - created_at
     - id
     - send_id
+    - sent
     - subject
     - body
     - rank
@@ -32,6 +37,29 @@ list:
     - error_text
     - account_id
     - tag
+    - updated_at
+    - created_by
+    - updated_by
+send_list:
+  sql: |
+    select
+    send.id,
+    send.ip,
+    (select count(id) from mailqueue_queue where send_id=send.id                         ) as queue_count,
+    (select count(id) from mailqueue_queue where send_id=send.id and length(error_text)>0) as queue_error_count,
+    send.created_at,
+    send.updated_at,
+    send.created_by,
+    send.updated_by
+    from mailqueue_send as send
+    order by send.created_at desc
+    ;
+  select:
+    - id
+    - ip
+    - queue_count
+    - queue_error_count
+    - created_at
     - updated_at
     - created_by
     - updated_by
