@@ -20,3 +20,12 @@ Go to start page.
 ```
 /mailqueueadmin/start
 ```
+
+## Session
+
+One could set session param to use a dynamic mysql connection.
+
+```
+$_SESSION['plugin']['mail']['queue_admin']['mysql'] = $mysql;
+```
+

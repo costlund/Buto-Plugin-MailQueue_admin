@@ -10,6 +10,7 @@ class PluginMailQueue_admin{
      * Include.
      */
     wfPlugin::includeonce('theme/include');
+    wfPlugin::enable('theme/include');
     wfPlugin::includeonce('wf/array');
     wfPlugin::includeonce('wf/yml');
     /**
@@ -24,6 +25,19 @@ class PluginMailQueue_admin{
      * Settings.
      */
     $this->settings = wfPlugin::getModuleSettings('mail/queue_admin', true);
+    /**
+     * Set mysql from session if empty.
+     */
+    if(!$this->settings->get('mysql')){
+      $user = wfUser::getSession();
+      $this->settings->set('mysql', $user->get('plugin/mail/queue_admin/mysql'));
+    }
+    /**
+     * If no mysql is set.
+     */
+    if(!$this->settings->get('mysql')){
+      exit('No database is provided.');
+    }
     /**
      * Mysql
      */
