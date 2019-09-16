@@ -1,5 +1,8 @@
-version: '1.1'
+version: '1.2'
 history:
+  '1.2':
+    date: '2019-09-16'
+    description: 'Limit records in Send by 10 days.'
   '1.1':
     date: '2019-09-13'
     description: 'Set mysql in session.'

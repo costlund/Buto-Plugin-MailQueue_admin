@@ -1,4 +1,7 @@
 -
+  type: p
+  innerHTML: Last 10 days.
+-
   type: widget
   data:
     plugin: wf/table

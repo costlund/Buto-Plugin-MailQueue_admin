@@ -52,6 +52,7 @@ send_list:
     send.created_by,
     send.updated_by
     from mailqueue_send as send
+    where datediff(now(),send.created_at) < 10
     order by send.created_at desc
     ;
   select:
