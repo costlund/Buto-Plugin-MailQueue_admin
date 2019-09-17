@@ -46,6 +46,7 @@ class PluginMailQueue_admin{
   }
   public function page_start(){
     $page = $this->getYml('page/start');
+    $page->setByTag($this->settings->get('mysql'));  
     /**
      * Insert admin layout from theme.
      */

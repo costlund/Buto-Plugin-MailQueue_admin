@@ -5,6 +5,24 @@ settings:
   title: I18n editor
 content:
   -
+    type: p
+    innerHTML:
+      -
+        type: span
+        innerHTML: rs:server
+      -
+        type: span
+        innerHTML: '-'
+      -
+        type: span
+        innerHTML: rs:database
+      -
+        type: span
+        innerHTML: '-'
+      -
+        type: span
+        innerHTML: rs:user_name
+  -
     type: div
     attribute:
       id: start
