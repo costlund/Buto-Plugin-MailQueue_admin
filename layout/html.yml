@@ -23,6 +23,7 @@ content:
               data:
                 bootswatch:
                   theme: Cerulean
+                icon: /plugin/mail/queue_admin/icon/icon.png
 
       body:
         type: body
