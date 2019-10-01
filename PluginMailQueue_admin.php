@@ -7,6 +7,10 @@ class PluginMailQueue_admin{
       exit('Role webadmin is required.');
     }
     /**
+     * Time limit.
+     */
+    set_time_limit(60);
+    /**
      * Include.
      */
     wfPlugin::includeonce('theme/include');
