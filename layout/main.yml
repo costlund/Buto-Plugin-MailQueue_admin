@@ -15,7 +15,13 @@ content:
           plugin: 'bootstrap/navbar_v1'
           method: navbar
           data:
-            brand: Mail
+            brand:
+              -
+                type: img
+                attribute:
+                  src: 'http://localhost/plugin/mail/queue_admin/icon/icon.png'
+                  style:
+                    width: 20px
             navbar:
               id: _my_navbar_i18n_
               item:
@@ -25,9 +31,6 @@ content:
                 -
                   text: Send
                   onclick: PluginWfAjax.load('start', '/[[class]]/send_list')
-#                -
-#                  text: Addzzz
-#                  onclick: "PluginWfBootstrapjs.modal({id: 'modal_i18neditor_edit', url: '/'+document.getElementById('hidden_class').innerHTML+'/add', lable: 'Add'});"
   -
     type: div
     attribute:
