@@ -2,7 +2,7 @@ version: 1.2.1
 history:
   1.2.1:
     date: '2020-10-29'
-    title: 'Icon'
+    title: Icon
     description: 'Add icon in nav bar.'
   1.2.0:
     date: '2019-09-16'
@@ -31,7 +31,7 @@ plugin:
     version: 1.11.0
   -
     name: wf/table
-    version: 1.19.1
+    version: 1.20.0
 sys:
   -
     name: mercury
