@@ -18,6 +18,7 @@
         mail_to: To
         subject: Subject
         body: Body
+        attachment: Attachment
         mail_from: From
         tag: Tag
         date_to: End date

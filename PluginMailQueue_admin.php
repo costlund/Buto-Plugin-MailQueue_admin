@@ -86,6 +86,24 @@ class PluginMailQueue_admin{
     $sql = $this->getSql('queue_list');
     $this->mysql->execute($sql->get());
     $rs = $this->mysql->getMany();
+    /**
+     * attachment
+     */
+    foreach($rs as $k => $v){
+      $dir = wfFilesystem::getScandir(wfGlobals::getAppDir().$this->settings->get('mysql/mail_queue_admin_attachment_folder').'/'.$v['id']);
+      if($dir){
+        $s = nulL;
+        foreach($dir as $v2){
+          $s .= ', '.$v2;
+        }
+        $rs[$k]['attachment'] = sizeof($dir).$s;
+      }else{
+        $rs[$k]['attachment'] = null;
+      }
+    }
+    /**
+     * 
+     */
     return $rs;
   }
   private function db_send_list(){
