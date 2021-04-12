@@ -9,7 +9,11 @@ class PluginMailQueue_admin{
     /**
      * Time limit.
      */
-    set_time_limit(60);
+    set_time_limit(60*5);
+    /**
+     * Memory limit
+     */
+    ini_set('memory_limit', '4048M');
     /**
      * Include.
      */
