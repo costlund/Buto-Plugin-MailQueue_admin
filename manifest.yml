@@ -1,5 +1,9 @@
-version: 1.3.4
+version: 1.4.0
 history:
+  1.4.0:
+    date: '2021-10-05'
+    title: 'Invalid field names'
+    description: 'Due to MySql version 8 field names as subject, rank can´t be used. This field was renamed to mail_subject, mail_rank.'
   1.3.4:
     date: '2021-09-27'
     title: Versions
