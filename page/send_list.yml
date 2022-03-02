@@ -9,7 +9,11 @@
     data:
       datatable:
         disabled: false
-      rs: rs:data
+        ajax: send_list_data
+        order:
+          -
+            - 0
+            - desc
       field:
         created_at: Created at
         id: ID

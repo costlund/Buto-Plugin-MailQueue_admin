@@ -1,9 +1,9 @@
-version: 1.4.4
+version: 1.5.0
 history:
-  1.4.4:
-    date: '2022-02-26'
-    title: Versions
-    description: 'Versions update.'
+  1.5.0:
+    date: '2022-03-02'
+    title: Tables
+    description: 'Tables data as json.'
   1.4.3:
     date: '2022-01-03'
     title: Versions

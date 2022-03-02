@@ -9,7 +9,11 @@
     data:
       datatable:
         disabled: false
-      rs: rs:data
+        ajax: queue_list_data
+        order:
+          -
+            - 0
+            - desc
       field:
         date_from: Send at
         rank: Rank

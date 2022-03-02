@@ -65,16 +65,24 @@ class PluginMailQueue_admin{
     wfDocument::mergeLayout($page->get());
   }
   public function page_queue_list(){
-    $rs = $this->db_queue_list();
     $page = $this->getYml('page/queue_list');
-    $page->setByTag(array('data' => $rs));
     wfDocument::renderElement($page->get());
   }
+  public function page_queue_list_data(){
+    $rs = $this->db_queue_list();
+    wfPlugin::includeonce('datatable/datatable_1_10_18');
+    $datatable = new PluginDatatableDatatable_1_10_18();
+    exit($datatable->set_table_data($rs));    
+  }
   public function page_send_list(){
-    $rs = $this->db_send_list();
     $page = $this->getYml('page/send_list');
-    $page->setByTag(array('data' => $rs));
     wfDocument::renderElement($page->get());
+  }
+  public function page_send_list_data(){
+    $rs = $this->db_send_list();
+    wfPlugin::includeonce('datatable/datatable_1_10_18');
+    $datatable = new PluginDatatableDatatable_1_10_18();
+    exit($datatable->set_table_data($rs));    
   }
   public function getYml($dir){
     return new PluginWfYml(__DIR__.'/'.$dir.".yml");
