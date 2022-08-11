@@ -1,5 +1,9 @@
-version: 1.5.3
+version: 1.5.4
 history:
+  1.5.4:
+    date: '2022-08-11'
+    title: Versions
+    description: 'Versions update.'
   1.5.3:
     date: '2022-06-08'
     title: Versions
@@ -71,7 +75,7 @@ history:
 plugin:
   -
     name: theme/include
-    version: 1.10.5
+    version: 1.11.0
   -
     name: wf/array
     version: 1.2.3
@@ -80,10 +84,10 @@ plugin:
     version: 1.4.0
   -
     name: wf/mysql
-    version: 1.14.7
+    version: 1.14.8
   -
     name: wf/table
-    version: 1.31.0
+    version: 1.31.1
 sys:
   -
     name: mercury
