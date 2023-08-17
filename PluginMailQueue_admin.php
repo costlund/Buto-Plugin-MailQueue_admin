@@ -28,7 +28,7 @@ class PluginMailQueue_admin{
   /**
      * Layout path.
      */
-    wfArray::set($GLOBALS, 'sys/layout_path', '/plugin/mail/queue_admin/layout');
+    wfGlobals::setSys('layout_path', '/plugin/mail/queue_admin/layout');
     /**
      * Settings.
      */
