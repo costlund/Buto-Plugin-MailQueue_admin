@@ -64,3 +64,58 @@ send_list:
     - updated_at
     - created_by
     - updated_by
+db_queue_one:
+  sql: |
+    select
+    queue.created_at,
+    queue.id,
+    queue.send_id,
+    send.created_at as send_created_at,
+    queue.mail_subject,
+    queue.body,
+    queue.mail_rank,
+    queue.mail_from,
+    queue.mail_to,
+    queue.date_from,
+    queue.date_to,
+    queue.error_text,
+    queue.account_id,
+    queue.tag,
+    queue.updated_at,
+    queue.created_by,
+    queue.updated_by
+    from mailqueue_queue as queue
+    left join mailqueue_send as send on queue.send_id=send.id
+    where queue.id=?
+    ;
+  select:
+    - created_at
+    - id
+    - send_id
+    - sent
+    - subject
+    - body
+    - rank
+    - mail_from
+    - mail_to
+    - date_from
+    - date_to
+    - error_text
+    - account_id
+    - tag
+    - updated_at
+    - created_by
+    - updated_by
+  params:
+    -
+      type: s
+      value: get:id
+db_queue_delete_one:
+  sql: |
+    delete from mailqueue_queue
+    where id=?
+    and isnull(send_id)
+  params:
+    -
+      type: s
+      value: get:id

@@ -7,6 +7,7 @@
     plugin: wf/table
     method: render_many
     data:
+      id: mailqueuadmin_list
       datatable:
         disabled: false
         ajax: queue_list_data
@@ -31,5 +32,12 @@
         send_id: Send ID
       class:
         table: table-sm table-striped
+-
+  type: script
+  innerHTML: |
+    $('#mailqueuadmin_list tbody').on( 'click', 'tr', function () {
+        PluginMailQueue_admin.list_id = 'mailqueuadmin_list';
+        PluginMailQueue_admin.queue_view(datatable_mailqueuadmin_list.row( this ).data());
+    } );
 
   

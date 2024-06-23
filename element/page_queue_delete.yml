@@ -1,0 +1,8 @@
+-
+  type: div
+  attribute: 
+    class: alert alert-success
+  innerHTML: Mail was deleted!
+-
+  type: script
+  innerHTML: PluginMailQueue_admin.queue_delete_done()

@@ -24,7 +24,11 @@ content:
                 bootswatch:
                   theme: Cerulean
                 icon: /plugin/mail/queue_admin/icon/icon.png
-
+          -
+            type: widget
+            data:
+              plugin: 'mail/queue_admin'
+              method: include
       body:
         type: body
         innerHTML: 'body...'

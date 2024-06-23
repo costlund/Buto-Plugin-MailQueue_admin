@@ -1,0 +1,56 @@
+-
+  type: div
+  settings:
+    enabled: rs:sent
+  attribute: 
+    class: alert alert-success
+  innerHTML:
+    -
+      type: div
+      innerHTML:
+        - 
+          type: strong
+          attribute:
+            class: content-colon
+          innerHTML: Sent
+        - 
+          type: span
+          innerHTML: rs:sent
+-
+  type: div
+  settings:
+    disabled: rs:sent
+  attribute: 
+    class: alert alert-warning
+  innerHTML:
+    -
+      type: a
+      attribute: 
+        class: btn btn-warning
+        style:
+          float: right
+        data-id: rs:id
+        onclick: "PluginMailQueue_admin.queue_delete({id: this.getAttribute('data-id')})"
+      innerHTML: Delete
+    -
+      type: div
+      innerHTML:
+        - 
+          type: strong
+          attribute:
+            class: content-colon
+          innerHTML: Sending in process after
+        - 
+          type: span
+          innerHTML: rs:date_from
+-
+  type: widget
+  data:
+    plugin: wf/table
+    method: render_one
+    data:
+      key_is_missing_alert: true
+      i18n: false
+      rs: data:one
+      class:
+        table: table-sm table-striped

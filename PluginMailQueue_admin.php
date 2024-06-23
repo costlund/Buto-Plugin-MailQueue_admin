@@ -25,6 +25,7 @@ class PluginMailQueue_admin{
      * Enable.
      */
     wfPlugin::enable('wf/table');
+    wfPlugin::enable('mail/queue_admin');
   /**
      * Layout path.
      */
@@ -84,6 +85,33 @@ class PluginMailQueue_admin{
     $datatable = new PluginDatatableDatatable_1_10_18();
     exit($datatable->set_table_data($rs));    
   }
+  public function page_queue_view(){
+    $one = $this->db_queue_one();
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    $element->setByTag($one->get());
+    $element->setByTag(array('one' => $one->get()), 'data');
+    wfDocument::renderElement($element);
+  }
+  public function page_queue_delete(){
+    $one = $this->db_queue_one();
+    if(!$one->get('sent')){
+      /**
+       * attatchments
+       */
+      if(wfFilesystem::fileExist($one->get('attatchment_folder'))){
+        wfFilesystem::delete_dir($one->get('attatchment_folder'));
+      }
+      /**
+       * 
+       */
+      $this->db_queue_delete_one();
+    }
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    wfDocument::renderElement($element);
+  }
+  public function widget_include(){
+    wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
+  }
   public function getYml($dir){
     return new PluginWfYml(__DIR__.'/'.$dir.".yml");
   }
@@ -124,5 +152,22 @@ class PluginMailQueue_admin{
     $this->mysql->execute($sql->get());
     $rs = $this->mysql->getMany();
     return $rs;
+  }
+  private function db_queue_one(){
+    $this->db_open();
+    $sql = $this->getSql(__FUNCTION__);
+    $this->mysql->execute($sql->get());
+    $rs = $this->mysql->getOne(array('sql' => $sql->get()));
+    $dir = wfFilesystem::getScandir(wfGlobals::getAppDir().$this->settings->get('attachment_folder').'/'.$rs->get('id'));
+    $rs->set('attatchment_count', sizeof($dir));
+    $rs->set('attatchment', $dir);
+    $rs->set('attatchment_folder', wfGlobals::getAppDir().$this->settings->get('attachment_folder').'/'.$rs->get('id'));
+    return $rs;
+  }
+  private function db_queue_delete_one(){
+    $this->db_open();
+    $sql = $this->getSql(__FUNCTION__);
+    $this->mysql->execute($sql->get());
+    return null;
   }
 }
