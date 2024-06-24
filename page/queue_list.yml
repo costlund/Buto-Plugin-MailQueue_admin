@@ -22,7 +22,7 @@
         error_text: Error
         mail_to: To
         subject: Subject
-        attachment: Attachment
+        attachment_count: Attachment
         mail_from: From
         tag: Tag
         date_to: End date

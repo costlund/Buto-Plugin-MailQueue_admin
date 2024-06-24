@@ -3,9 +3,6 @@ class PluginMailQueue_admin{
   private $settings = null;
   private $mysql = null;
   function __construct() {
-    if(!wfUser::hasRole('webadmin')){
-      exit('Role webadmin is required.');
-    }
     /**
      * Time limit.
      */
@@ -26,7 +23,7 @@ class PluginMailQueue_admin{
      */
     wfPlugin::enable('wf/table');
     wfPlugin::enable('mail/queue_admin');
-  /**
+    /**
      * Layout path.
      */
     wfGlobals::setSys('layout_path', '/plugin/mail/queue_admin/layout');
@@ -34,6 +31,7 @@ class PluginMailQueue_admin{
      * Settings.
      */
     $this->settings = wfPlugin::getModuleSettings('mail/queue_admin', true);
+    $this->settings->set('mysql', wfSettings::getSettingsFromYmlString($this->settings->get('mysql')));
     /**
      * Set mysql from session if empty.
      */
@@ -48,12 +46,31 @@ class PluginMailQueue_admin{
       exit('No database is provided.');
     }
     /**
+     * role
+     */
+    if(!$this->settings->get('role')){
+      $this->settings->set('role/', 'webmaster');
+    }
+    /**
      * Mysql
      */
     wfPlugin::includeonce('wf/mysql');
     $this->mysql = new PluginWfMysql();
   }
+  private function secure_user(){
+    $exit = true;
+    foreach($this->settings->get('role') as $k => $v){
+      if(wfUser::hasRole($v)){
+        $exit = false;
+        break;
+      }
+    }
+    if($exit){
+      exit('Role restrictions!');
+    }
+  }
   public function page_start(){
+    $this->secure_user();
     $page = $this->getYml('page/start');
     $page->setByTag($this->settings->get('mysql'));  
     /**
@@ -66,26 +83,31 @@ class PluginMailQueue_admin{
     wfDocument::mergeLayout($page->get());
   }
   public function page_queue_list(){
+    $this->secure_user();
     $page = $this->getYml('page/queue_list');
     wfDocument::renderElement($page->get());
   }
   public function page_queue_list_data(){
+    $this->secure_user();
     $rs = $this->db_queue_list();
     wfPlugin::includeonce('datatable/datatable_1_10_18');
     $datatable = new PluginDatatableDatatable_1_10_18();
     exit($datatable->set_table_data($rs));    
   }
   public function page_send_list(){
+    $this->secure_user();
     $page = $this->getYml('page/send_list');
     wfDocument::renderElement($page->get());
   }
   public function page_send_list_data(){
+    $this->secure_user();
     $rs = $this->db_send_list();
     wfPlugin::includeonce('datatable/datatable_1_10_18');
     $datatable = new PluginDatatableDatatable_1_10_18();
     exit($datatable->set_table_data($rs));    
   }
   public function page_queue_view(){
+    $this->secure_user();
     $one = $this->db_queue_one();
     $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
     $element->setByTag($one->get());
@@ -93,6 +115,7 @@ class PluginMailQueue_admin{
     wfDocument::renderElement($element);
   }
   public function page_queue_delete(){
+    $this->secure_user();
     $one = $this->db_queue_one();
     if(!$one->get('sent')){
       /**
@@ -132,13 +155,9 @@ class PluginMailQueue_admin{
     foreach($rs as $k => $v){
       $dir = wfFilesystem::getScandir(wfGlobals::getAppDir().$this->settings->get('mysql/mail_queue_admin_attachment_folder').'/'.$v['id']);
       if($dir){
-        $s = nulL;
-        foreach($dir as $v2){
-          $s .= ', '.$v2;
-        }
-        $rs[$k]['attachment'] = sizeof($dir).$s;
+        $rs[$k]['attachment_count'] = sizeof($dir);
       }else{
-        $rs[$k]['attachment'] = null;
+        $rs[$k]['attachment_count'] = null;
       }
     }
     /**

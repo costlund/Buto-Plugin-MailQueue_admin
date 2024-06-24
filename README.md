@@ -3,14 +3,34 @@
 Page plugin to monitor mail created via PluginMailQueue.
 
 ## Settings
-
 ```
 plugin_modules:
   mailqueueadmin:
     plugin: 'mail/queue_admin'
-    settings:
-      admin_layout: /theme/_folder_/_folder_/admin_layout_bootstrap4.yml
+    settings:    
+```
+MySQL.
+```
       mysql: 'yml:/../buto_data/theme/_folder_/_folder_/mysql.yml'
+```
+Folder for attachments.
+```
+      attachment_folder: '/../buto_data/theme/[theme]/mail_queue_attachment'
+```
+If no role param is set role webmaster is set. 
+This role secure all pages.
+```
+      role:
+        - webmaster
+```
+
+### Include
+Include Javascript in html head section.
+```
+type: widget
+data:
+  plugin: 'mail/queue_admin'
+  method: include
 ```
 
 ## Usage
