@@ -1,5 +1,9 @@
-version: 1.7.0
+version: 1.7.1
 history:
+  1.7.1:
+    date: '2024-06-24'
+    title: Queue
+    description: 'Remove Body from queue list.'
   1.7.0:
     date: '2024-06-23'
     title: Delete

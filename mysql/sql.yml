@@ -6,7 +6,6 @@ queue_list:
     queue.send_id,
     send.created_at as send_created_at,
     queue.mail_subject,
-    queue.body,
     queue.mail_rank,
     queue.mail_from,
     queue.mail_to,
@@ -28,7 +27,6 @@ queue_list:
     - send_id
     - sent
     - subject
-    - body
     - rank
     - mail_from
     - mail_to
