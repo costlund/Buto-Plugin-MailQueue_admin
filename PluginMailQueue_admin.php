@@ -171,6 +171,7 @@ class PluginMailQueue_admin{
     exit($datatable->set_table_data($this->get_query()->get('rs')));    
   }
   public function page_queue_delete_many(){
+    $this->secure_user();
     $rows = $this->db_queue_delete_many();
     $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
     $element->setByTag(array('rows' => $rows));
