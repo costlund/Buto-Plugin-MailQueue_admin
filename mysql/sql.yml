@@ -122,3 +122,10 @@ db_queue_delete_many:
     delete from mailqueue_queue
     where isnull(send_id)
     and created_at <= '[SESSION:plugin/mail/queue_admin/queue_list/last_created_at]'
+db_queue_select_delete_many:
+  sql: |
+    select id from mailqueue_queue
+    where isnull(send_id)
+    and created_at <= '[SESSION:plugin/mail/queue_admin/queue_list/last_created_at]'
+  select:
+    - id

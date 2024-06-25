@@ -172,6 +172,18 @@ class PluginMailQueue_admin{
   }
   public function page_queue_delete_many(){
     $this->secure_user();
+    /**
+     * attatchment_folder
+     */
+    $rows = $this->db_queue_select_delete_many();
+    foreach($rows as $k => $v){
+      if(wfFilesystem::fileExist($v['attatchment_folder'])){
+        wfFilesystem::delete_dir($v['attatchment_folder']);
+      }
+    }
+    /**
+     * 
+     */
     $rows = $this->db_queue_delete_many();
     $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
     $element->setByTag(array('rows' => $rows));
@@ -256,6 +268,16 @@ class PluginMailQueue_admin{
     $sql = $this->getSql(__FUNCTION__);
     $this->mysql->execute($sql->get());
     return null;
+  }
+  private function db_queue_select_delete_many(){
+    $this->db_open();
+    $sql = $this->getSql(__FUNCTION__);
+    $this->mysql->execute($sql->get());
+    $rs = $this->mysql->getMany();
+    foreach($rs as $k => $v){
+      $rs[$k]['attatchment_folder'] = wfGlobals::getAppDir().$this->settings->get('attachment_folder').'/'.$v['id'];
+    }
+    return $rs;
   }
   private function db_queue_delete_many(){
     $this->db_open();
