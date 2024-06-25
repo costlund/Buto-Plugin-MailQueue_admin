@@ -180,6 +180,9 @@ class PluginMailQueue_admin{
     wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
   }
   private function get_queries(){
+    if(!$this->settings->get('queries')){
+      $this->settings->set('queries', array());
+    }
     foreach($this->settings->get('queries') as $k => $v){
       $this->settings->set("queries/$k/key", $k);
     }
