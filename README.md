@@ -23,6 +23,16 @@ This role secure all pages.
       role:
         - webmaster
 ```
+Add queries to create multiple emails.
+```
+      queries:
+        -
+          name: All emails in account
+          sql:
+            sql: select distinct email from account where not isnull(email)
+            select:
+              - email
+```
 
 ### Include
 Include Javascript in html head section.
