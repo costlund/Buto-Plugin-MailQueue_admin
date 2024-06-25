@@ -1,5 +1,13 @@
-version: 1.7.2
+version: 1.8.0
 history:
+  1.8.0:
+    date: '2024-06-25'
+    title: Create email
+    description: 'Add methods to create one or multiple emails. Add method to delete not sent emails.'
+  1.7.3:
+    date: '2024-06-24'
+    title: Method
+    description: 'Add method set_settings.'
   1.7.2:
     date: '2024-06-24'
     title: Security

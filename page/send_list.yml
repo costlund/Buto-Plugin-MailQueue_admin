@@ -1,27 +1,35 @@
 -
-  type: p
-  innerHTML: Last 10 days.
--
-  type: widget
-  data:
-    plugin: wf/table
-    method: render_many
-    data:
-      datatable:
-        disabled: false
-        ajax: send_list_data
-        order:
-          -
-            - 0
-            - desc
-      field:
-        created_at: Created at
-        id: ID
-        ip: IP
-        queue_count: Count
-        queue_error_count: Errors
-        created_by: Created by
-      class:
-        table: table-sm table-striped
+  type: div
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/mail/queue_admin/i18n'
+  innerHTML: 
+    -
+      type: p
+      innerHTML: Last 10 days.
+    -
+      type: widget
+      data:
+        plugin: wf/table
+        method: render_many
+        data:
+          datatable:
+            disabled: false
+            ajax: send_list_data
+            order:
+              -
+                - 0
+                - desc
+          field:
+            created_at: Created at
+            id: ID
+            ip: IP
+            queue_count: Count
+            queue_error_count: Errors
+            created_by: Created by
+          class:
+            table: table-sm table-striped
 
   

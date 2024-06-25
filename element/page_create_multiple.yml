@@ -1,0 +1,28 @@
+-
+  type: widget
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/mail/queue_admin/i18n'
+  data:
+    plugin: wf/table
+    method: render_many
+    data:
+      id: table_queries
+      class:
+        table: table-sm table-striped
+      field:
+        name: Name
+      datatable:
+        ajax: /mailqueueadmin/create_multiple_data
+        order:
+          -
+            - 0
+            - asc
+-
+  type: script
+  innerHTML: |
+    $('#table_queries tbody').on( 'click', 'tr', function () {
+        PluginMailQueue_admin.create_multiple_query( datatable_table_queries.row( this ).data() );
+    } );

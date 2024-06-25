@@ -56,6 +56,14 @@ class PluginMailQueue_admin{
      */
     wfPlugin::includeonce('wf/mysql');
     $this->mysql = new PluginWfMysql();
+    /**
+     * 
+     */
+    if(strlen(wfRequest::get('key'))){
+      wfRequest::set('has_key', true);
+    }else{
+      wfRequest::set('has_key', false);
+    }
   }
   private function secure_user(){
     $exit = true;
@@ -132,8 +140,56 @@ class PluginMailQueue_admin{
     $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
     wfDocument::renderElement($element);
   }
+  public function page_create(){
+    $this->secure_user();
+    wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
+  }
+  public function page_create_capture(){
+    $this->secure_user();
+    wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
+  }
+  public function page_create_multiple(){
+    $this->secure_user();
+    wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
+  }
+  public function page_create_multiple_data(){
+    $this->secure_user();
+    wfPlugin::includeonce('datatable/datatable_1_10_18');
+    $datatable = new PluginDatatableDatatable_1_10_18();
+    exit($datatable->set_table_data($this->get_queries()));    
+  }
+  public function page_create_multiple_query(){
+    $this->secure_user();
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    $element->setByTag(wfRequest::getAll());
+    wfDocument::renderElement($element);
+  }
+  public function page_create_multiple_query_data(){
+    $this->secure_user();
+    wfPlugin::includeonce('datatable/datatable_1_10_18');
+    $datatable = new PluginDatatableDatatable_1_10_18();
+    exit($datatable->set_table_data($this->get_query()->get('rs')));    
+  }
+  public function page_queue_delete_many(){
+    $rows = $this->db_queue_delete_many();
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    $element->setByTag(array('rows' => $rows));
+    wfDocument::renderElement($element);
+  }
   public function widget_include(){
     wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
+  }
+  private function get_queries(){
+    foreach($this->settings->get('queries') as $k => $v){
+      $this->settings->set("queries/$k/key", $k);
+    }
+    return $this->settings->get('queries');
+  }
+  private function get_query(){
+    $key = wfRequest::getInt('key');
+    $query = new PluginWfArray($this->settings->get("queries/$key"));
+    $query->set('rs', $this->db_query($query->get('sql')));
+    return $query;
   }
   public function getYml($dir){
     return new PluginWfYml(__DIR__.'/'.$dir.".yml");
@@ -159,6 +215,14 @@ class PluginMailQueue_admin{
       }else{
         $rs[$k]['attachment_count'] = null;
       }
+    }
+    /**
+     * session
+     */
+    if(sizeof($rs)){
+      wfUser::setSession('plugin/mail/queue_admin/queue_list/last_created_at', $rs[0]['created_at']);
+    }else{
+      wfUser::setSession('plugin/mail/queue_admin/queue_list/last_created_at', date('Y-m-d H:i:s'));
     }
     /**
      * 
@@ -188,5 +252,72 @@ class PluginMailQueue_admin{
     $sql = $this->getSql(__FUNCTION__);
     $this->mysql->execute($sql->get());
     return null;
+  }
+  private function db_queue_delete_many(){
+    $this->db_open();
+    $sql = $this->getSql(__FUNCTION__);
+    $this->mysql->execute($sql->get());
+    return $this->mysql->affected_rows;
+  }
+  private function db_query($query){
+    $this->db_open();
+    $sql = new PluginWfArray($query);
+    $this->mysql->execute($sql->get());
+    return $this->mysql->getMany();
+  }
+  public function form_create_validate($form){
+    $form = new PluginWfArray($form);
+    $key = wfRequest::get('key');
+    if(strlen($key)){
+      $form->set('items/mail_to/mandatory', false);
+    }else{
+      $form->set('items/key/mandatory', false);
+    }
+    return $form->get();
+  }
+  public function form_create_capture($data){
+    wfPlugin::includeonce('mail/queue');
+    $mail = new PluginMailQueue(true);
+    $mail->set_settings('data/mysql', $this->settings->get('mysql'));
+    /**
+     * 
+     */
+    $key = wfRequest::get('key');
+    if(strlen($key)){
+      $query = $this->get_query();
+      foreach($query->get('rs') as $k => $v){
+        $mail->create(
+          wfRequest::get('subject'), 
+          wfRequest::get('body'), 
+          $v['email'], 
+          null, 
+          null,
+          null, 
+          wfRequest::get('rank'), 
+          null, 
+          wfRequest::get('tag'),
+          wfRequest::get('mail_from'),
+          wfRequest::get('from_name')
+          );
+      }
+    }else{
+      $mail->create(
+        wfRequest::get('subject'), 
+        wfRequest::get('body'), 
+        wfRequest::get('mail_to'), 
+        null, 
+        null,
+        null, 
+        wfRequest::get('rank'), 
+        null, 
+        wfRequest::get('tag'),
+        wfRequest::get('mail_from'),
+        wfRequest::get('from_name')
+        );
+    }
+    /**
+     * 
+     */
+    return array("PluginMailQueue_admin.form_create_capture()");
   }
 }

@@ -1,36 +1,44 @@
 -
-  type: p
-  innerHTML: All records.
--
-  type: widget
-  data:
-    plugin: wf/table
-    method: render_many
-    data:
-      id: mailqueuadmin_list
-      datatable:
-        disabled: false
-        ajax: queue_list_data
-        order:
-          -
-            - 0
-            - desc
-      field:
-        date_from: Send at
-        rank: Rank
-        sent: Sent
-        error_text: Error
-        mail_to: To
-        subject: Subject
-        attachment_count: Attachment
-        mail_from: From
-        tag: Tag
-        date_to: End date
-        created_at: Created at
-        created_by: Created by
-        send_id: Send ID
-      class:
-        table: table-sm table-striped
+  type: div
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/mail/queue_admin/i18n'
+  innerHTML: 
+    -
+      type: p
+      innerHTML: All records.
+    -
+      type: widget
+      data:
+        plugin: wf/table
+        method: render_many
+        data:
+          id: mailqueuadmin_list
+          datatable:
+            disabled: false
+            ajax: queue_list_data
+            order:
+              -
+                - 0
+                - desc
+          field:
+            date_from: Send at
+            rank: Rank
+            sent: Sent
+            error_text: Error
+            mail_to: To
+            subject: Subject
+            attachment_count: Attachment
+            mail_from: From
+            tag: Tag
+            date_to: End date
+            created_at: Created at
+            created_by: Created by
+            send_id: Send ID
+          class:
+            table: table-sm table-striped
 -
   type: script
   innerHTML: |

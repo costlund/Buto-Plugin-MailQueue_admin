@@ -1,0 +1,19 @@
+-
+  type: div
+  attribute: 
+    class: alert alert-success
+  innerHTML:
+    -
+      type: div
+      innerHTML:
+        - 
+          type: strong
+          attribute:
+            class: content-colon
+          innerHTML: Affected rows
+        - 
+          type: span
+          innerHTML: rs:rows
+-
+  type: script
+  innerHTML: PluginMailQueue_admin.queue_delete_many_done()

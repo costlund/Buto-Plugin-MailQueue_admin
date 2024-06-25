@@ -1,0 +1,58 @@
+-
+  type: div
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/mail/queue_admin/i18n'
+  innerHTML: 
+    -
+      type: p
+      innerHTML: 
+        -
+          type: div
+          attribute:
+            style:
+              min-height: 50px
+          innerHTML:
+            -
+              type: a
+              attribute: 
+                class: btn btn-primary
+                style:
+                  float: right
+                data-key: rs:key
+                data-name: rs:name
+                onclick: PluginMailQueue_admin.create(this.getAttribute('data-key'), this.getAttribute('data-name'))
+              innerHTML: Create
+            - 
+              type: strong
+              attribute:
+                class: content-colon
+              innerHTML: Name
+            - 
+              type: span
+              innerHTML: rs:name
+    -
+      type: widget
+      data:
+        plugin: wf/table
+        method: render_many
+        data:
+          id: table_query
+          class:
+            table: table-sm table-striped
+          field:
+            email: Email
+          datatable:
+            ajax: /mailqueueadmin/create_multiple_query_data?key=[key]&name=[name]
+            order:
+              -
+                - 0
+                - asc
+-
+  type: script
+  innerHTML: |
+    $('#table_query tbody').on( 'click', 'tr', function () {
+      alert('Click on Create button!');
+    } );

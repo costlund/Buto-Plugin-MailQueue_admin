@@ -1,0 +1,123 @@
+url: /mailqueueadmin/create_capture
+ajax: true
+submit_value: Save
+id: form_create
+i18n:
+  path: '/plugin/mail/queue_admin/i18n'
+items:
+  subject:
+    type: varchar
+    placeholder: 'Text (1-255)'
+    label: Subject
+    mandatory: true
+  body:
+    type: text
+    label: Body
+    mandatory: true
+  rank:
+    type: varchar
+    placeholder: '0'
+    label: Rank
+    mandatory: true
+    default: 1
+  mail_from:
+    type: varchar
+    placeholder: '@'
+    label: Email
+    mandatory: true
+    default: globals:_SESSION/email
+  from_name:
+    type: varchar
+    placeholder: 'Text (1-255)'
+    label: Name
+    mandatory: true
+    default: 'Administrator'
+  mail_to:
+    type: varchar
+    placeholder: '@'
+    label: To
+    mandatory: true
+  key:
+    type: varchar
+    placeholder: '0'
+    label: key
+    mandatory: true
+    default: get:key
+  tag:
+    type: varchar
+    placeholder: 'Text (1-255)'
+    label: Tag
+    mandatory: true
+    default: mailqueueadmin
+layout:
+  -
+    type: div
+    attribute: {class: row}
+    innerHTML:
+      -
+        type: div
+        attribute: {class: col-md-12}
+        innerHTML: 'item[{"id": "subject", "type": "div"}]'
+      -
+        type: div
+        attribute: {class: col-md-12}
+        innerHTML: 'item[{"id": "body", "type": "div"}]'
+      -
+        type: div
+        attribute: {class: col-md-6}
+        innerHTML: 'item[{"id": "rank", "type": "div"}]'
+      -
+        type: div
+        attribute: {class: col-md-6}
+        innerHTML: 'item[{"id": "tag", "type": "div"}]'
+  -
+    type: div
+    attribute: {class: row}
+    innerHTML:
+      -
+        type: div
+        attribute: {class: col-md-12 text-center}
+        innerHTML:
+          -
+            type: strong
+            innerHTML: From
+      -
+        type: div
+        attribute: {class: col-md-6}
+        innerHTML: 'item[{"id": "mail_from", "type": "div"}]'
+      -
+        type: div
+        attribute: {class: col-md-6}
+        innerHTML: 'item[{"id": "from_name", "type": "div"}]'
+  -
+    type: div
+    attribute: {class: row}
+    innerHTML:
+      -
+        type: div
+        attribute: {class: col-md-12 text-center}
+        innerHTML:
+          -
+            type: strong
+            innerHTML: To
+      -
+        type: div
+        settings:
+          disabled: get:has_key
+        attribute: {class: col-md-12}
+        innerHTML: 'item[{"id": "mail_to", "type": "div"}]'
+      -
+        type: div
+        settings:
+          enabled: get:has_key
+        attribute: {class: col-md-12}
+        innerHTML:
+          -
+            type: strong
+            innerHTML: get:name
+validation_before:
+  plugin: mail/queue_admin
+  method: form_create_validate
+capture:
+  plugin: mail/queue_admin
+  method: form_create_capture
