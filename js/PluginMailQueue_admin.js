@@ -33,7 +33,7 @@ function PluginMailQueue_admin(){
     PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_create_multiple', label: 'Create multiple', size: 'lg', url: '/[[class]]/create_multiple'});
   }
   this.create_multiple_query = function(data){
-    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_create_multiple_query', label: 'Mail', url: '/mailqueueadmin/create_multiple_query?key='+data.key+'&name='+data.name});
+    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_create_multiple_query', label: 'Mail', size: 'lg', url: '/mailqueueadmin/create_multiple_query?key='+data.key+'&name='+data.name});
   }
   this.queue_delete_many = function(){
     PluginWfBootstrapjs.confirm({content: 'Are you sure to delete all not sent?', method: function(){PluginMailQueue_admin.queue_delete_many_confirmed();}, data: {} });
