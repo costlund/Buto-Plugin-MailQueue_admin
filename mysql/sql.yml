@@ -82,6 +82,7 @@ db_queue_one:
     queue.updated_at,
     queue.created_by,
     queue.updated_by
+    ,queue.from_name
     from mailqueue_queue as queue
     left join mailqueue_send as send on queue.send_id=send.id
     where queue.id=?
@@ -104,6 +105,7 @@ db_queue_one:
     - updated_at
     - created_by
     - updated_by
+    - from_name
   params:
     -
       type: s
@@ -129,3 +131,40 @@ db_queue_select_delete_many:
     and created_at <= '[SESSION:plugin/mail/queue_admin/queue_list/last_created_at]'
   select:
     - id
+db_queue_update_one:
+  sql: |
+    update mailqueue_queue set
+    mail_subject=?
+    ,body=?
+    ,mail_rank=?
+    ,mail_from=?
+    ,mail_to=?
+    ,tag=?
+    ,from_name=?
+    where id=? 
+  params:
+    -
+      type: s
+      value: get:subject
+    -
+      type: s
+      value: get:body
+    -
+      type: i
+      value: get:rank
+    -
+      type: s
+      value: get:mail_from
+    -
+      type: s
+      value: get:mail_to
+    -
+      type: s
+      value: get:tag
+    -
+      type: s
+      value: get:from_name
+    -
+      type: s
+      value: get:id
+

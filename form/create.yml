@@ -5,50 +5,57 @@ id: form_create
 i18n:
   path: '/plugin/mail/queue_admin/i18n'
 items:
+  id:
+    type: varchar
+    label: id
+    default: rs:id
   subject:
     type: varchar
     placeholder: 'Text (1-255)'
     label: Subject
     mandatory: true
+    default: rs:subject
   body:
     type: text
     label: Body
     mandatory: true
+    default: rs:body
   rank:
     type: varchar
     placeholder: '0'
     label: Rank
     mandatory: true
-    default: 1
+    default: rs:rank
   mail_from:
     type: varchar
     placeholder: '@'
     label: Email
     mandatory: true
-    default: globals:_SESSION/email
+    default: rs:mail_from
   from_name:
     type: varchar
     placeholder: 'Text (1-255)'
     label: Name
     mandatory: true
-    default: 'Administrator'
+    default: rs:from_name
   mail_to:
     type: varchar
     placeholder: '@'
     label: To
     mandatory: true
+    default: rs:mail_to
   key:
     type: varchar
     placeholder: '0'
     label: key
     mandatory: true
-    default: get:key
+    default: rs:key
   tag:
     type: varchar
     placeholder: 'Text (1-255)'
     label: Tag
     mandatory: true
-    default: mailqueueadmin
+    default: rs:tag
 layout:
   -
     type: div
@@ -115,6 +122,9 @@ layout:
           -
             type: strong
             innerHTML: get:name
+render:
+  plugin: mail/queue_admin
+  method: form_create_render
 validation_before:
   plugin: mail/queue_admin
   method: form_create_validate

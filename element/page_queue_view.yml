@@ -43,6 +43,15 @@
             onclick: "PluginMailQueue_admin.queue_delete({id: this.getAttribute('data-id')})"
           innerHTML: Delete
         -
+          type: a
+          attribute: 
+            class: btn btn-secondary
+            style:
+              float: right
+            data-id: rs:id
+            onclick: "PluginMailQueue_admin.edit({id: this.getAttribute('data-id')})"
+          innerHTML: Edit
+        -
           type: div
           innerHTML:
             - 
