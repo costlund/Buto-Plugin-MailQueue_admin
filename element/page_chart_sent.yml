@@ -1,0 +1,23 @@
+-
+  type: widget
+  data:
+    plugin: chart/chartjs_4_4_1
+    method: chart
+    data:
+      data:
+        id: chart_sent
+      config:
+        type: bar
+        data:
+          datasets:
+            -
+              label: 'Sent mail last 100 days'
+              data: rs:data
+        options:
+          responsive: true
+          maintainAspectRatio: false
+          scales:
+            x:
+              type: 'time'
+              time:
+                unit: day

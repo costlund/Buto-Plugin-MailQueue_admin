@@ -1,0 +1,25 @@
+-
+  type: widget
+  data:
+    plugin: chart/chartjs_4_4_1
+    method: chart
+    data:
+      data:
+        id: chart_not_sent
+      config:
+        type: bar
+        data:
+          datasets:
+            -
+              label: 'Not sent mail last 100 days'
+              data: rs:data
+              borderColor: 'orange'
+              backgroundColor: 'orange'
+        options:
+          responsive: true
+          maintainAspectRatio: false
+          scales:
+            x:
+              type: 'time'
+              time:
+                unit: day

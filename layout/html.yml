@@ -29,6 +29,11 @@ content:
             data:
               plugin: 'mail/queue_admin'
               method: include
+          -
+            type: widget
+            data:
+              plugin: chart/chartjs_4_4_1
+              method: include
       body:
         type: body
         innerHTML: 'body...'

@@ -23,6 +23,7 @@ class PluginMailQueue_admin{
      */
     wfPlugin::enable('wf/table');
     wfPlugin::enable('mail/queue_admin');
+    wfPlugin::enable('chart/chartjs_4_4_1');
     /**
      * Layout path.
      */
@@ -193,6 +194,24 @@ class PluginMailQueue_admin{
     $element->setByTag(array('rows' => $rows));
     wfDocument::renderElement($element);
   }
+  public function page_chart_sent(){
+    $rs = $this->db_chart_sent();
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    $element->setByTag(array('data' => $rs));
+    wfDocument::renderElement($element);
+  }
+  public function page_chart_not_sent(){
+    $rs = $this->db_chart_not_sent();
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    $element->setByTag(array('data' => $rs));
+    wfDocument::renderElement($element);
+  }
+  public function page_chart_error(){
+    $rs = $this->db_chart_error();
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    $element->setByTag(array('data' => $rs));
+    wfDocument::renderElement($element);
+  }
   public function widget_include(){
     wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
   }
@@ -298,6 +317,24 @@ class PluginMailQueue_admin{
   private function db_query($query){
     $this->db_open();
     $sql = new PluginWfArray($query);
+    $this->mysql->execute($sql->get());
+    return $this->mysql->getMany();
+  }
+  private function db_chart_sent(){
+    $this->db_open();
+    $sql = $this->getSql(__FUNCTION__);
+    $this->mysql->execute($sql->get());
+    return $this->mysql->getMany();
+  }
+  private function db_chart_not_sent(){
+    $this->db_open();
+    $sql = $this->getSql(__FUNCTION__);
+    $this->mysql->execute($sql->get());
+    return $this->mysql->getMany();
+  }
+  private function db_chart_error(){
+    $this->db_open();
+    $sql = $this->getSql(__FUNCTION__);
     $this->mysql->execute($sql->get());
     return $this->mysql->getMany();
   }

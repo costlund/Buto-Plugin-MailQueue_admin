@@ -167,4 +167,46 @@ db_queue_update_one:
     -
       type: s
       value: get:id
-
+db_chart_sent:
+  sql: |
+    select
+    left(queue.created_at,10) as date
+    ,count(queue.id) as count_queue
+    from mailqueue_queue as queue
+    where queue.created_at > DATE_ADD(now(), INTERVAL -100 DAY)
+    and not isnull(send_id)
+    group by date
+    order by date desc
+    ;
+  select:
+    - x
+    - y
+db_chart_not_sent:
+  sql: |
+    select
+    left(queue.created_at,10) as date
+    ,count(queue.id) as count_queue
+    from mailqueue_queue as queue
+    where queue.created_at > DATE_ADD(now(), INTERVAL -100 DAY)
+    and isnull(send_id)
+    group by date
+    order by date desc
+    ;
+  select:
+    - x
+    - y
+db_chart_error:
+  sql: |
+    select
+    left(queue.created_at,10) as date
+    ,count(queue.id) as count_queue
+    from mailqueue_queue as queue
+    where queue.created_at > DATE_ADD(now(), INTERVAL -100 DAY)
+    and not isnull(send_id)
+    and not isnull(error_text)
+    group by date
+    order by date desc
+    ;
+  select:
+    - x
+    - y
