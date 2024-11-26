@@ -31,25 +31,14 @@ content:
               id: _my_navbar_i18n_
               item:
                 -
-                  type: dropdown
                   text: Queue
-                  item:
-                    -
-                      text: Mail
-                      onclick: PluginWfAjax.load('start', '/[[class]]/queue_list')
-                    -
-                      text: Chart sent
-                      onclick: PluginMailQueue_admin.chart_sent()
-                    -
-                      text: Chart not sent
-                      onclick: PluginMailQueue_admin.chart_not_sent()
-                    -
-                      text: Chart error
-                      onclick: PluginMailQueue_admin.chart_error()
+                  onclick: PluginWfAjax.load('start', '/[[class]]/queue_list')
+                -
+                  text: Charts
+                  onclick: PluginMailQueue_admin.charts()
                 -
                   text: Cron job
                   onclick: PluginWfAjax.load('start', '/[[class]]/send_list')
-
                 -
                   type: dropdown
                   text: Create

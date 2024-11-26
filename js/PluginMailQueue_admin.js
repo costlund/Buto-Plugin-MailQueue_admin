@@ -4,7 +4,7 @@ function PluginMailQueue_admin(){
     window.open('/mailqueueadmin/start');
   }
   this.queue_view = function(data){
-    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_view', label: 'Mail', url: '/mailqueueadmin/queue_view?id='+data.id});
+    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_view', label: 'Mail', url: '/mailqueueadmin/queue_view?id='+data.id, size: 'xl'});
   }
   this.queue_delete = function(data){
     PluginWfBootstrapjs.confirm({content: 'Are you sure to delete?', method: function(){PluginMailQueue_admin.queue_delete_confirmed();}, data: data });
@@ -59,14 +59,8 @@ function PluginMailQueue_admin(){
   this.queue_delete_many_done = function(data){
     $('#'+this.list_id).DataTable().ajax.reload();
   }
-  this.chart_sent = function(){
-    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_chart_sent', label: 'Sent', size: 'lg', url: '/[[class]]/chart_sent'});
-  }
-  this.chart_not_sent = function(){
-    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_chart_not_sent', label: 'Not sent', size: 'lg', url: '/[[class]]/chart_not_sent'});
-  }
-  this.chart_error = function(){
-    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_chart_error', label: 'Error', size: 'lg', url: '/[[class]]/chart_error'});
+  this.charts = function(){
+    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_charts', label: 'Charts', size: 'lg', url: '/[[class]]/charts'});
   }
 }
 var PluginMailQueue_admin = new PluginMailQueue_admin();

@@ -1,0 +1,18 @@
+-
+  type: widget
+  data:
+    plugin: bootstrap/navtabs_v1
+    method: embed
+    data:
+      id: navtabs_charts
+      item:
+        -
+          text: Sent
+          data-url: '/mailqueueadmin/chart_sent'
+        -
+          text: Not sent
+          data-url: '/mailqueueadmin/chart_not_sent'
+        -
+          text: Error
+          data-url: '/mailqueueadmin/chart_error'
+  

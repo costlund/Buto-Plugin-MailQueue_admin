@@ -5,7 +5,7 @@
     method: chart
     data:
       data:
-        id: chart_sent
+        id: chart_error
       config:
         type: bar
         data:

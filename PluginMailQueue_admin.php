@@ -212,6 +212,11 @@ class PluginMailQueue_admin{
     $element->setByTag(array('data' => $rs));
     wfDocument::renderElement($element);
   }
+  public function page_charts(){
+    wfPlugin::enable('bootstrap/navtabs_v1');
+    $this->secure_user();
+    wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
+  }
   public function widget_include(){
     wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
   }
