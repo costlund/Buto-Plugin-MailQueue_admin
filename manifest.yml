@@ -1,5 +1,9 @@
-version: 1.11.0
+version: 1.11.1
 history:
+  1.11.1:
+    date: '2024-12-16'
+    title: Queue
+    description: 'Add hidden body data in list to be able to filer on.'
   1.11.0:
     date: '2024-11-26'
     title: Charts

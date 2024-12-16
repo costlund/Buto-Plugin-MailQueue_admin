@@ -37,6 +37,9 @@
             created_at: Created at
             created_by: Created by
             send_id: Send ID
+            body:
+              name: Body
+              visible: false
           class:
             table: table-sm table-striped
 -

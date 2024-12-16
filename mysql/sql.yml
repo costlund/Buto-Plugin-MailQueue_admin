@@ -17,6 +17,7 @@ queue_list:
     queue.updated_at,
     queue.created_by,
     queue.updated_by
+    ,queue.body
     from mailqueue_queue as queue
     left join mailqueue_send as send on queue.send_id=send.id
     order by queue.created_at desc
@@ -38,6 +39,7 @@ queue_list:
     - updated_at
     - created_by
     - updated_by
+    - body
 send_list:
   sql: |
     select
