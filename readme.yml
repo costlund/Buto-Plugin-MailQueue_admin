@@ -1,0 +1,161 @@
+readme:
+  name: Buto-Plugin-MailQueue_admin
+  description: |
+    Page plugin to monitor mail created via PluginMailQueue.
+  item:
+    -
+      name: Settings
+      description: |
+        ```
+        plugin_modules:
+          mailqueueadmin:
+            plugin: 'mail/queue_admin'
+            settings:    
+        ```
+        MySQL.
+        ```
+              mysql: 'yml:/../buto_data/theme/_folder_/_folder_/mysql.yml'
+        ```
+        Folder for attachments.
+        ```
+              attachment_folder: '/../buto_data/theme/[theme]/mail_queue_attachment'
+        ```
+        If no role param is set role webmaster is set. 
+        This role secure all pages.
+        ```
+              role:
+                - webmaster
+        ```
+        Add queries to create multiple emails.
+        ```
+              queries:
+                -
+                  name: All emails in account
+                  sql:
+                    sql: select distinct email from account where not isnull(email)
+                    select:
+                      - email
+        ```
+    -
+      name: Usage
+      description: |
+        Go to start page.
+
+        ```
+        /mailqueueadmin/start
+        ```
+
+
+        One could set session param to use a dynamic mysql connection.
+
+        ```
+        $_SESSION['plugin']['mail']['queue_admin']['mysql'] = $mysql;
+        ```
+        sd
+    -
+      name: Pages
+      item:
+        -
+          name: page_chart_error
+        -
+          name: page_chart_not_sent
+        -
+          name: page_chart_sent
+        -
+          name: page_charts
+        -
+          name: page_create
+        -
+          name: page_create_capture
+        -
+          name: page_create_multiple
+        -
+          name: page_create_multiple_data
+        -
+          name: page_create_multiple_query
+        -
+          name: page_create_multiple_query_data
+        -
+          name: page_edit
+        -
+          name: page_queue_delete
+        -
+          name: page_queue_delete_many
+        -
+          name: page_queue_list
+        -
+          name: page_queue_list_data
+        -
+          name: page_queue_view
+        -
+          name: page_send
+        -
+          name: page_send_list
+        -
+          name: page_send_list_data
+        -
+          name: page_start
+    -
+      name: Widgets
+      item:
+        -
+          name: widget_include
+          description: |
+            Include Javascript in html head section.
+            ```
+            type: widget
+            data:
+              plugin: 'mail/queue_admin'
+              method: include
+            ```
+    -
+      name: Event
+      item: {  }
+    -
+      name: Construct
+      item:
+        -
+          name: __construct
+    -
+      name: Methods
+      item:
+        -
+          name: secure_user
+        -
+          name: get_queries
+        -
+          name: get_query
+        -
+          name: getYml
+        -
+          name: db_open
+        -
+          name: getSql
+        -
+          name: db_queue_list
+        -
+          name: db_send_list
+        -
+          name: db_queue_one
+        -
+          name: db_queue_delete_one
+        -
+          name: db_queue_update_one
+        -
+          name: db_queue_select_delete_many
+        -
+          name: db_queue_delete_many
+        -
+          name: db_query
+        -
+          name: db_chart_sent
+        -
+          name: db_chart_not_sent
+        -
+          name: db_chart_error
+        -
+          name: form_create_render
+        -
+          name: form_create_validate
+        -
+          name: form_create_capture
