@@ -36,6 +36,13 @@
         -
           type: a
           attribute: 
+            class: btn btn-primary
+            data-id: rs:id
+            onclick: "PluginMailQueue_admin.queue_send({id: this.getAttribute('data-id')})"
+          innerHTML: Send now
+        -
+          type: a
+          attribute: 
             class: btn btn-warning
             style:
               float: right

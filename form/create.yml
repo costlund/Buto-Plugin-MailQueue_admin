@@ -131,3 +131,9 @@ validation_before:
 capture:
   plugin: mail/queue_admin
   method: form_create_capture
+elements_after:
+  -
+    type: script
+    innerHTML: |
+      var htmleditor = new PluginHtmleditorQuilljs();
+      htmleditor.init('form_create_body');

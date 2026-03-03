@@ -217,6 +217,17 @@ class PluginMailQueue_admin{
     $this->secure_user();
     wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
   }
+  public function page_send(){
+    wfPlugin::includeonce('mail/queue');
+    $mailQueue = new PluginMailQueue(true);
+    $success = $mailQueue->send_now(wfRequest::get('id'));
+    /**
+     * 
+     */
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    $element->setByTag(array('success' => $success));
+    wfDocument::renderElement($element);
+  }
   public function widget_include(){
     wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
   }
@@ -286,9 +297,14 @@ class PluginMailQueue_admin{
     $this->mysql->execute($sql->get());
     $rs = $this->mysql->getOne(array('sql' => $sql->get()));
     $dir = wfFilesystem::getScandir(wfGlobals::getAppDir().$this->settings->get('attachment_folder').'/'.$rs->get('id'));
-    $rs->set('attatchment_count', sizeof($dir));
-    $rs->set('attatchment', $dir);
-    $rs->set('attatchment_folder', wfGlobals::getAppDir().$this->settings->get('attachment_folder').'/'.$rs->get('id'));
+    $rs->set('attatchment_count', null);
+    $rs->set('attatchment', null);
+    $rs->set('attatchment_folder', null);
+    if($rs->get('id')){
+      $rs->set('attatchment_count', sizeof($dir));
+      $rs->set('attatchment', $dir);
+      $rs->set('attatchment_folder', wfGlobals::getAppDir().$this->settings->get('attachment_folder').'/'.$rs->get('id'));
+    }
     return $rs;
   }
   private function db_queue_delete_one(){

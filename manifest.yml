@@ -1,5 +1,9 @@
-version: 1.11.1
+version: 1.12.0
 history:
+  1.12.0:
+    date: '2026-03-03'
+    title: Send now
+    description: 'Add button Send now.'
   1.11.1:
     date: '2024-12-16'
     title: Queue

@@ -29,7 +29,7 @@ function PluginMailQueue_admin(){
     PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_create', label: 'Create', url: '/[[class]]/create?key='+key+'&name='+name});
   }
   this.edit = function(data){
-    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_edit', label: 'Create', url: '/mailqueueadmin/edit?id='+data.id});
+    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_edit', label: 'Create', url: '/mailqueueadmin/edit?id='+data.id, size: 'lg'});
   }
   this.form_create_capture = function(){
     if(document.getElementById('modal_mailqueueadmin_view_body')){
@@ -61,6 +61,9 @@ function PluginMailQueue_admin(){
   }
   this.charts = function(){
     PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_charts', label: 'Charts', size: 'lg', url: '/[[class]]/charts'});
+  }
+  this.queue_send = function(data){
+    PluginWfBootstrapjs.modal({id: 'modal_mailqueueadmin_send', label: 'Send', url: '/mailqueueadmin/send?id='+data.id});
   }
 }
 var PluginMailQueue_admin = new PluginMailQueue_admin();

@@ -1,0 +1,20 @@
+-
+  type: div
+  settings:
+    enabled: rs:success
+  attribute: 
+    class: alert alert-success
+  innerHTML: Message was sent.
+-
+  type: script
+  settings:
+    enabled: rs:success
+  innerHTML: PluginWfAjax.update('modal_mailqueueadmin_view_body')
+-
+  type: div
+  settings:
+    disabled: rs:success
+  attribute: 
+    class: alert alert-warning
+  innerHTML: Message was NOT sent.
+
