@@ -172,11 +172,12 @@ db_queue_update_one:
 db_chart_sent:
   sql: |
     select
-    left(queue.created_at,10) as date
+    left(send.created_at,10) as date
     ,count(queue.id) as count_queue
     from mailqueue_queue as queue
-    where queue.created_at > DATE_ADD(now(), INTERVAL -100 DAY)
-    and not isnull(send_id)
+    inner join mailqueue_send as send on queue.send_id=send.id
+    where send.created_at > DATE_ADD(now(), INTERVAL -100 DAY)
+    and not isnull(queue.send_id)
     group by date
     order by date desc
     ;
