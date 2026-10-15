@@ -24,7 +24,7 @@ content:
               -
                 type: img
                 attribute:
-                  src: 'http://localhost/plugin/mail/queue_admin/icon/icon.png'
+                  src: '/plugin/mail/queue_admin/icon/icon.png'
                   style:
                     width: 20px
             navbar:

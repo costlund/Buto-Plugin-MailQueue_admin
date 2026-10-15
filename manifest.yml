@@ -1,5 +1,9 @@
-version: 1.12.1
+version: 1.12.2
 history:
+  1.12.2:
+    date: '2026-10-15'
+    title: Icon
+    description: 'Icon was loaded from domain localhost instead of current domain.'
   1.12.1:
     date: '2026-03-30'
     title: Chart send
